@@ -192,6 +192,354 @@
 --     FROM
 --         @Account
 
+--     SELECT CAST(SCOPE_IDENTITY() AS INT) -- will select the ID for the newly inserted row (RETURN)
+
+-- GO
+
+-- CREATE PROCEDURE dbo.Blog_Delete
+--     @BlogId INT
+-- AS
+--     UPDATE dbo.BlogComment
+--     SET ActiveInd = CONVERT(BIT,0)
+--     WHERE BlogId = @BlogId;
+
+--     UPDATE dbo.Blog
+--     SET PhotoId = NULL,
+--         ActiveInd = CONVERT(BIT,0)
+--     WHERE BlogId = @BlogId;
+
+-- GO
+
+-- CREATE PROCEDURE [aggregate].Blog_Get
+--     @BlogId INT
+-- AS
+--     SELECT
+--         [BlogId]
+--         ,[ApplicationUserId]
+--         ,[PhotoId]
+--         ,[Title]
+--         ,[Content]
+--         ,[PublishDate]
+--         ,[UpdateDate]
+--     FROM
+--         [aggregate].Blog
+--     WHERE
+--         BlogId = @BlogId AND ActiveInd = CONVERT(BIT,1)
+
+-- GO
+
+-- CREATE PROCEDURE [aggregate].Blog_GetAll
+--     @Offset INT,
+--     @PageSize INT
+-- AS
+--     SELECT
+--         [BlogId]
+--         ,[ApplicationUserId]
+--         ,[Username]
+--         ,[Title]
+--         ,[Content]
+--         ,[PhotoId]
+--         ,[PublishDate]
+--         ,[UpdateDate]
+--     FROM
+--         [BlogDB].[aggregate].[Blog]
+--     WHERE
+--         ActiveInd = CONVERT(BIT,1)
+--     ORDER BY
+--         BlogId
+--     OFFSET @Offset ROWS --- where the query should start
+--     FETCH NEXT @PageSize ROWS ONLY; -- continue from here
+
+--     SELECT COUNT(*) FROM [aggregate].Blog t1 WHERE t1.[ActiveInd] = CONVERT(BIT,1)
+
+-- CREATE PROCEDURE [dbo].Blog_GetAllFamous
+
+-- AS
+--     SELECT TOP 6
+-- 		t1.[BlogId]
+-- 		,t1.[ApplicationUserId]
+--         ,t1.[Username]
+-- 		,t1.[PhotoId]
+-- 		,t1.[Title]
+-- 		,t1.[Content]
+-- 		,t1.[PublishDate]
+-- 		,t1.[UpdateDate]
+-- 		,t1.[ActiveInd]
+--     FROM
+--         [aggregate].Blog t1
+--     INNER JOIN
+--         dbo.BlogComment t2 ON t1.BlogId = t2.BlogId
+--     WHERE
+--         t1.ActiveInd = CONVERT(BIT, 1)
+--         AND
+--         t2.ActiveInd = CONVERT(BIT, 1)
+--     GROUP BY --- CREATES A KEY FOR COMPARISON
+-- 		t1.[BlogId]
+-- 		,t1.[ApplicationUserId]
+--         ,t1.[Username]
+-- 		,t1.[PhotoId]
+-- 		,t1.[Title]
+-- 		,t1.[Content]
+-- 		,t1.[PublishDate]
+-- 		,t1.[UpdateDate]
+-- 		,t1.[ActiveInd]
+--     ORDER BY
+--         COUNT(t2.BlogCommentId) DESC
+
+-- GO
+
+-- ALTER PROCEDURE  dbo.blog_GetByUserId
+--     @ApplicationUserId INT
+-- AS
+--     SELECT
+--         BlogId,
+--         ApplicationUserId,
+--         Username,
+--         Title,
+--         Content,
+--         PhotoId,
+--         PublishDate,
+--         UpdateDate
+--     FROM
+--         [aggregate].[Blog]
+--     WHERE
+--         ApplicationUserId = @ApplicationUserId AND
+--         ActiveInd = CONVERT(BIT, 1)
+
+-- GO
+
+-- CREATE PROCEDURE dbo.Blog_Upsert
+--     @Blog BlogType READONLY,
+--     @ApplicationUserId INT
+-- AS
+--     MERGE INTO dbo.Blog TARGET
+--     USING
+--     (
+--         SELECT
+--             b.BlogId,
+--             @ApplicationUserId [ApplicationUserId],
+--             b.Title,
+--             b.Content,
+--             b.PhotoId
+--         FROM
+--             @Blog b
+--     ) AS SOURCE
+--     ON TARGET.BlogId = SOURCE.BlogId AND TARGET.ApplicationUserId = SOURCE.ApplicationUserId
+--     WHEN MATCHED THEN
+--         UPDATE SET
+--             TARGET.Title = SOURCE.Title,
+--             TARGET.Content = SOURCE.Content,
+--             TARGET.PhotoId = SOURCE.PhotoId,
+--             TARGET.UpdateDate = GETDATE()
+--     WHEN NOT MATCHED BY TARGET THEN
+--         INSERT
+--         (
+--             ApplicationUserId,
+--             Title,
+--             Content,
+--             PhotoId
+--         )
+--         VALUES
+--         (
+--             SOURCE.ApplicationUserId,
+--             SOURCE.Title,
+--             SOURCE.Content,
+--             SOURCE.PhotoId
+--         );
+    
+--     SELECT CAST(SCOPE_IDENTITY() AS INT);
+
+-- GO
+
+-- CREATE PROCEDURE dbo.BlogComment_Delete
+--     @BlogCommentId INT
+-- AS
+--     DROP TABLE IF EXISTS #BlogCommentsToBeDeleted;
+
+--     WITH cte_blogComments AS (
+
+--         SELECT
+--             t1.BlogCommentId,
+--             t1.ParentBlogCommentId
+--         FROM
+--             dbo.BlogComment t1
+--         WHERE
+--             t1.BlogCommentId = @BlogCommentId
+
+--         UNION ALL
+
+--             SELECT
+--                 t2.BlogCommentId,
+--                 t2.ParentBlogCommentId
+--             FROM
+--                 dbo.BlogComment t2
+--                 INNER JOIN cte_blogComments t3
+--                 ON t2.ParentBlogCommentId = t3.BlogCommentId
+--     )
+--     --- Recursion statement
+--     SELECT 
+--         BlogCommentId,
+--         ParentBlogCommentId
+--     INTO #BlogCommentsToBeDeleted -- copy all columns into a new table
+--     FROM cte_blogComments t1;
+
+--     UPDATE t1
+--     SET
+--         t1.[ActiveInd] = CONVERT(BIT,0),
+--         t1.[UpdateDate] = GETDATE()
+--     FROM
+--         dbo.BlogComments t1
+--         INNER JOIN #BlogCommentsToBeDeleted t2
+--             ON t1.BlogcommentId = t2.BlogCommentId
+
+-- GO
+
+-- CREATE PROCEDURE dbo.BlogComment_Get
+--     @BlogCommentId INT
+-- AS
+--     SELECT
+-- 		[BlogCommentId]
+-- 		,[ParentBlogCommentId]
+-- 		,[BlogId]
+-- 		,[ApplicationUserId]
+--         ,[Username]
+-- 		,[Content]
+-- 		,[PublishDate]
+-- 		,[UpdateDate]
+-- 		,[ActiveInd]
+--     FROM
+--         [aggregate].BlogComment
+--     WHERE
+--         BlogCommentId = @BlogCommentId AND
+--         ActiveInd = CONVERT(BIT, 1)
+
+-- GO
+
+-- CREATE PROCEDURE dbo.BlogComment_GetAll
+--     @BlogId INT
+-- AS
+--     SELECT
+-- 		[BlogCommentId]
+-- 		,[ParentBlogCommentId]
+-- 		,[BlogId]
+-- 		,[ApplicationUserId]
+--         ,[Username]
+-- 		,[Content]
+-- 		,[PublishDate]
+-- 		,[UpdateDate]
+-- 		,[ActiveInd]
+--     FROM
+--         [aggregate].BlogComment
+--     WHERE
+--         BlogId = @BlogId AND
+--         ActiveInd = CONVERT(BIT, 1)
+--     ORDER BY
+--         UpdateDate DESC
+
+-- GO
+
+-- CREATE PROCEDURE dbo.BlogComment_Upsert
+--     @BlogComment BlogCommentType READONLY,
+--     @ApplicationUserId INT
+-- AS
+--     MERGE INTO dbo.BlogComment AS TARGET
+--     USING
+--     (
+--         SELECT
+--             BlogCommentId,
+--             ParentBlogCommentId,
+--             BlogId,
+--             Content,
+--             @ApplicationUserId AS [ApplicationUserId]
+--         FROM
+--             @BlogComment
+--     ) AS SOURCE
+--     ON TARGET.BlogId = SOURCE.BlogId AND TARGET.ApplicationUserId = @ApplicationUserId
+--     WHEN MATCHED THEN
+--         UPDATE SET
+--             ParentBlogCommentId = SOURCE.ParentBlogCommentId,
+--             Content = SOURCE.Content
+--     WHEN NOT MATCHED BY TARGET THEN
+--         INSERT
+--         (
+--                 [ParentBlogCommentId]
+--                 ,[BlogId]
+--                 ,[ApplicationUserId]
+--                 ,[Content]
+--         )
+--         VALUES
+--         (
+--             SOURCE.ParentBlogCommentId,
+--             SOURCE.BlogId,
+--             SOURCE.ApplicationUserId,
+--             SOURCE.Content
+--         );
+
 --     SELECT CAST(SCOPE_IDENTITY() AS INT)
 
+-- GO
+
+-- CREATE PROCEDURE dbo.Photo_Delete
+--     @PhotoId INT
+-- AS
+--     DELETE FROM dbo.Photo WHERE PhotoId = @PhotoId
+
+-- GO
+
+-- CREATE PROCEDURE dbo.Photo_Get
+--     @PhotoID INT
+-- AS
+--     SELECT
+--         t1.[PhotoId]
+-- 		,t1.[ApplicationUserId]
+-- 		,t1.[PublicId]
+-- 		,t1.[ImageUrl]
+-- 		,t1.[Description]
+-- 		,t1.[PublishDate]
+-- 		,t1.[UpdateDate]
+--     FROM
+--         dbo.Photo t1
+--     WHERE
+--         t1.PhotoId = @PhotoId
+
+-- GO
+
+-- CREATE PROCEDURE dbo.Photo_GetByUserId
+--     @ApplicationUserID INT
+-- AS
+--     SELECT
+--         t1.[PhotoId]
+-- 		,t1.[ApplicationUserId]
+-- 		,t1.[PublicId]
+-- 		,t1.[ImageUrl]
+-- 		,t1.[Description]
+-- 		,t1.[PublishDate]
+-- 		,t1.[UpdateDate]
+--     FROM
+--         dbo.Photo t1
+--     WHERE
+--         t1.ApplicationUserId = @ApplicationUserID
+
+-- GO
+
+-- CREATE PROCEDURE dbo.Photo_Insert
+--     @ApplicationUserID INT,
+--     @Photo PhotoType READONLY
+-- AS
+--     INSERT INTO [BlogDB].[dbo].[Photo]
+--     (
+--             [ApplicationUserId]
+--             ,[PublicId]
+--             ,[ImageUrl]
+--             ,[Description]
+--     )
+--     SELECT
+--         @ApplicationUserID
+--         ,[PublicId]
+--         ,[ImageUrl]
+--         ,[Description]
+--     FROM
+--         @Photo
+
+--     SELECT CAST(SCOPE_IDENTITY() AS INT);
 -- GO
