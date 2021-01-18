@@ -1,0 +1,63 @@
+::: DATABASE STRUCTURE :::
+
+Schema -> aggregate
+
+
+:: Views ::
+
+	Blog
+
+	BlogComment
+
+
+:: Types ::
+
+	AccountType
+
+	BlogCommentType
+
+	BlogType
+
+	PhotoType
+
+
+:: Tables ::
+
+	ApplicationUser
+
+	Blog
+
+	BlogComment
+
+	Photo
+
+
+:: SPROC's ::
+
+	Account_GetByUsername
+
+	Account_Insert
+
+	Blog_Delete
+
+	Blog_Getall
+
+	Blog_GetAllFamous
+
+	Blog_GetByUserId
+
+	Blog_Upsert
+
+	BlogComment_Delete
+
+	BlogComment_GetAll
+
+	BlogComment_Upsert
+
+	Photo_Delete
+
+	Photo_Get
+
+	Photo_GetByUserId
+
+	Photo_Insert

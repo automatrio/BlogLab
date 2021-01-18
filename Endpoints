@@ -1,0 +1,42 @@
+::: ENDPOINTS :::
+
+:: Account Endpoints ::
+
+[Post] Create a new user
+
+[Post] api/Account/login -> let an existing user sign in
+
+
+:: Blog Endpoints ::
+
+[Post] api/Blog -> create a new blog [AUTHORIZATION]
+
+[Get] api/Blog -> gets all the blogs page by page
+
+[Get] api/Blog/famous -> get top 6 most talked blogs
+
+[Get] api/Blog/[blogId] -> get the given blog
+
+[Get] api/Blog/user/[applicationUserId] -> gets all user created blogs
+
+[Delete] api/Blog/[blogId] -> delete existing blog [AUTHORIZATION]
+
+
+:: Blog Comment Endpoints ::
+
+[Post] api/BlogComment -> create a new blog comment [AUTHORIZATION]
+
+[Delete] api/BlogComment/[blogCommentedId] -> delete a given blog comment [AUTHORIZATION]
+
+[Get] api/BlogComment/[blogId] -> load all blog comments for a given blog
+
+
+:: Photo Endpoints ::
+
+[Post] api/Photo -> upload a photo [AUTHORIZATION]
+
+[Delete] api/Photo -> delete a photo [AUTHORIZATION]
+
+[Get] api/Photo -> get all of the user's photos [AUTHORIZATION]
+
+[Get] api/Photo/[photoId] -> get specific photo
