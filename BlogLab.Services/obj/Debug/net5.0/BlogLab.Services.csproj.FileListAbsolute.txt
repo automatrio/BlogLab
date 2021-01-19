@@ -1,0 +1,12 @@
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/bin/Debug/net5.0/BlogLab.Services.deps.json
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/bin/Debug/net5.0/BlogLab.Services.dll
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/bin/Debug/net5.0/ref/BlogLab.Services.dll
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/bin/Debug/net5.0/BlogLab.Services.pdb
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/obj/Debug/net5.0/BlogLab.Services.csprojAssemblyReference.cache
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/obj/Debug/net5.0/BlogLab.Services.GeneratedMSBuildEditorConfig.editorconfig
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/obj/Debug/net5.0/BlogLab.Services.AssemblyInfoInputs.cache
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/obj/Debug/net5.0/BlogLab.Services.AssemblyInfo.cs
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/obj/Debug/net5.0/BlogLab.Services.csproj.CoreCompileInputs.cache
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/obj/Debug/net5.0/BlogLab.Services.dll
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/obj/Debug/net5.0/ref/BlogLab.Services.dll
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/obj/Debug/net5.0/BlogLab.Services.pdb

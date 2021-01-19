@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Web/BlogLab.Web.csproj": {}
+    "/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/BlogLab.Services.csproj": {}
   },
   "projects": {
     "/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Models/BlogLab.Models.csproj": {
@@ -66,14 +66,14 @@
         }
       }
     },
-    "/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Web/BlogLab.Web.csproj": {
+    "/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/BlogLab.Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Web/BlogLab.Web.csproj",
-        "projectName": "BlogLab.Web",
-        "projectPath": "/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Web/BlogLab.Web.csproj",
+        "projectUniqueName": "/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/BlogLab.Services.csproj",
+        "projectName": "BlogLab.Services",
+        "projectPath": "/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/BlogLab.Services.csproj",
         "packagesPath": "/home/automatrio/.nuget/packages/",
-        "outputPath": "/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Web/obj/",
+        "outputPath": "/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/automatrio/.nuget/NuGet/NuGet.Config"
@@ -104,9 +104,29 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.14.0, )"
+            },
+            "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[5.0.2, )"
+            },
             "Microsoft.Extensions.Configuration": {
               "target": "Package",
               "version": "[5.0.0, )"
+            },
+            "Microsoft.Extensions.Options": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.8.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.8.0, )"
             }
           },
           "imports": [
@@ -120,9 +140,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
