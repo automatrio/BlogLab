@@ -85,7 +85,8 @@ namespace BlogLab.Repository
                     new {
                         @BlogComment = dataTable.AsTableValuedParameter("BlogCommentType"),
                         @ApplicationUserId = applicationUserId
-                    }
+                    },
+                    commandType: CommandType.StoredProcedure
                 );
             }
 
