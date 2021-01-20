@@ -2,6 +2,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BlogLab.Models\BlogLab.Models.csproj" />
+    <ProjectReference Include="..\BlogLab.Services\BlogLab.Services.csproj" />
+    <ProjectReference Include="..\BlogLab.Repository\BlogLab.Repository.csproj" />
+    <ProjectReference Include="..\BlogLab.Identity\BlogLab.Identity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
   </ItemGroup>
 
   <PropertyGroup>

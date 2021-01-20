@@ -10,3 +10,6 @@
 /home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/obj/Debug/net5.0/BlogLab.Services.dll
 /home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/obj/Debug/net5.0/ref/BlogLab.Services.dll
 /home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/obj/Debug/net5.0/BlogLab.Services.pdb
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/bin/Debug/net5.0/BlogLab.Models.dll
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/bin/Debug/net5.0/BlogLab.Models.pdb
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Services/obj/Debug/net5.0/BlogLab.Services.csproj.CopyComplete

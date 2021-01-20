@@ -13,3 +13,5 @@
 /home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Identity/obj/Debug/net5.0/BlogLab.Identity.dll
 /home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Identity/obj/Debug/net5.0/ref/BlogLab.Identity.dll
 /home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Identity/obj/Debug/net5.0/BlogLab.Identity.pdb
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Identity/bin/Debug/net5.0/BlogLab.Repository.dll
+/home/automatrio/Arquivos Importantes/Udemy/Fase2/Blog/BlogLab.Identity/bin/Debug/net5.0/BlogLab.Repository.pdb
